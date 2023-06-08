@@ -1,6 +1,8 @@
 package ru.example.mygallery;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,14 +37,23 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     }
     // Replace the contents of a view (invoked by the layout manager)
     @Override
-    public void onBindViewHolder(ViewHolder viewHolder, final int position) {
+    public void onBindViewHolder(ViewHolder viewHolder, @SuppressLint("RecyclerView") final int position) {
         // - get element from your dataset at this position
+        File imgFile = new File(galleryList.get(position).getPath());
         // - replace the contents of the view with that element
         viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         setImageFromPath(galleryList.get(position).getPath(), viewHolder.img);
         viewHolder.img.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // inside on click listener we are creating a new intent
+                Intent i = new Intent(context, ImageActivity.class);
+
+                // on below line we are passing the image path to our new activity.
+                i.putExtra("imgPath", galleryList.get(position).getPath());
+
+                // at last we are starting our activity.
+                context.startActivity(i);
                 //TODO что-то может происходить, если кликнуть на изображение
                 Toast.makeText(context, "" + galleryList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
             }
