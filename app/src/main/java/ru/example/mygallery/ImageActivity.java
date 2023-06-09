@@ -6,6 +6,9 @@ import android.view.ScaleGestureDetector;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.squareup.picasso.Picasso;
+
 import java.io.File;
 
 public class ImageActivity extends AppCompatActivity {
@@ -24,8 +27,8 @@ public class ImageActivity extends AppCompatActivity {
 
         File imgFile = new File(imgPath);
 
-//        if (imgFile.exists()) {
-//            Picasso.get().load(imgFile).placeholder(R.drawable.ic_launcher_background).into(imageView);
-//        }
+        if (imgFile.exists()) {
+            Picasso.get().load(imgFile).placeholder(R.drawable.ic_launcher_background).into(imageView);
+        }
     }
 }
